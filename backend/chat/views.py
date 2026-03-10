@@ -268,8 +268,8 @@ def login_api(request):
 
         login(request, authed_user)
         return api_success(data=_auth_payload(authed_user, include_token=True), message="Logged in.")
-    except Exception:
-        return api_error(message="Login failed due to a server error.", status=500, code="SERVER_ERROR")
+    except Exception as e:
+        return api_error(message=f"Login failed: {str(e)}", status=500, code="SERVER_ERROR")
 
 
 @api_view(["POST"])
