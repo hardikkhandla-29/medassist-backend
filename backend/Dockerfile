@@ -27,5 +27,5 @@ RUN python manage.py collectstatic --noinput
 # Expose port (Cloud Run provides $PORT)
 EXPOSE 8080
 
-# Start server using Gunicorn
-CMD ["gunicorn", "--bind", ":8080", "backend.wsgi:application", "--workers", "2", "--threads", "4"]
+# Run migrations then start Gunicorn
+CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn --bind :8080 backend.wsgi:application --workers 2 --threads 4"]
